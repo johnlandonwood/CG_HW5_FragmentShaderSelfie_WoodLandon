@@ -2,15 +2,19 @@
 <html lang="en">
 <body>
   <canvas id="glCanvas" width="512" height="512"></canvas>
+  <div>
+    Input file here: <input type="file" id="fileInput"><br>
+  </div>
   <br/>
   <select id="shaderSelector">
     <option value="0">Blue Shader</option>
     <option value="1">Red Shader</option>
     <option value="2">Green Shader</option>
+    <option value="3">Image Shader</option>
   </select>
 </body>
 
-<script id="vertex-shader" type="x-shader/x-vertex">
+<script id="vertex-shader1" type="x-shader/x-vertex">
 #version 300 es
 in vec4 aPosition;
 
@@ -55,8 +59,36 @@ void main() {
 }
 </script>
 
+<script id="img-vertex-shader" type="x-shader/x-vertex">
+#version 300 es
+in vec4 aPosition;
+in vec2 aTexCoord;
+
+out vec2 vTexCoord;
+
+void main() {
+    gl_Position = aPosition;
+    vTexCoord = aTexCoord;
+}
+</script>
+
+<script id="img-fragment-shader" type="x-shader/x-fragment">
+#version 300 es
+precision mediump float;
+
+in vec2 vTexCoord;
+out vec4 fColor;
+uniform sampler2D uTexMap;
+
+void main() {
+    fColor = texture(uTexMap, vTexCoord);
+
+}
+</script>
+
 <script type="text/javascript" src="../Common/InitShaders.js"></script>
 <script type="text/javascript" src="../Common/MVnew.js"></script>
+<script type="text/javascript" src="CG_HW5_FragmentShaderSelfie_WoodLandon_ImageArrayData.js"></script>
 <script type="text/javascript" src="CG_HW5_FragmentShaderSelfie_WoodLandon.js"></script>
 
 </html>
