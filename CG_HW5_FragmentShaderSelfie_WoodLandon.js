@@ -46,9 +46,9 @@ window.onload = function init() {
     gl.viewport(0, 0, 512, 512);
 
     blueProgram = initShaders(gl, "vertex-shader1", "fragment-shader1");
-    redProgram = initShaders(gl, "vertex-shader1", "fragment-shader2");
-    greenProgram = initShaders(gl, "vertex-shader1", "fragment-shader3")
-    imgProgram = initShaders(gl, "img-vertex-shader", "img-fragment-shader")
+    grayscaleProgram = initShaders(gl, "img-vertex-shader", "grayscale-fragment-shader");
+    sepiaProgram = initShaders(gl, "img-vertex-shader", "sepia-fragment-shader");
+    contrastProgram = initShaders(gl, "img-vertex-shader", "inversion-fragment-shader");
 
     vBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
@@ -88,19 +88,19 @@ window.onload = function init() {
       const selectedIndex = event.target.value;
       switch (selectedIndex) {
         case '0':
-          render(blueProgram);
+          render(grayscaleProgram);
           break;
         case '1':
-          render(redProgram);
+          render(sepiaProgram);
           break;
         case '2':
-          render(greenProgram);
+          render(contrastProgram);
           break;
         case '3':
-          render(imgProgram);
+          render(blueProgram);
           break;
         default:
-          render(imgProgram);
+          render(blueProgram);
           break;
       }
     });
